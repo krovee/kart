@@ -16,6 +16,10 @@ file(
   "**.cpp"
 )
 
+## TODO: Disable debug flags at release build
+## Setup debug flag
+add_compile_options(-g)
+
 ## Create executable
 add_executable(
   ${PROJECT_NAME}

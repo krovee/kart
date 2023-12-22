@@ -9,6 +9,7 @@ TARGET_PLATFORM=$OSTYPE
 ## Setup bootstrap build directory
 BOOTSTRAP_BUILD_DIR=bootstrap-$TARGET_CONFIGURATION-$TARGET_PLATFORM
 
-## Perform a build
+## Perform a clean operation
+rm -rf $BOOTSTRAP_BUILD_DIR
+mkdir -p $BOOTSTRAP_BUILD_DIR
 ./configure.sh
-cmake --build $BOOTSTRAP_BUILD_DIR --config Debug

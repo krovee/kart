@@ -1,0 +1,90 @@
+
+--- Here's a common compiler command to import module. 
+--- Project structure import and semantics done via something 
+--- called 'implicit shared naming'. So, how it works? 
+--- Every 'local' module/source file will be implicitly 
+--- share it's public content symbols. But other 'global' 
+--- modules must be imported explicitly by programmer! 
+--- A common example of global modules usage is to call/use 
+--- anything from standard library, which requires to import  
+--- module called 'std'. 
+#import std
+
+--- Or, you can import only certain parts of that module.
+--- If you need to import multiple parts of the same module,
+--- so only thing you need to do is to list all the parts inside
+--- curly brackets.
+#import { std.io, std.ints }
+
+--- By default every defined symbol is public. So, it does 
+--- share it's name across subdirectories. You must explicitly
+--- provide a 'private' keyword to force it from sharing it's name.
+__test_var : i32 = 32
+
+--- To define a variable field you need to provide a name, type
+--- and (optionally-required) an init-value.
+
+
+--- So, here's a basic set of primitive types:
+--- iXXX -> integers with XXX-bits size (1, 8, 16, 32, 64, 128)
+--- fXXX -> IEEE754 with XXX-bits size (16, 32, 64, 128, 256)
+
+--- But types can have a certain qualifiers such as 'const',
+--- or array-detector square brackets [] with optional size.
+
+
+const true  : i1 = 1
+const false : i1 = 0
+
+--- You can also define a new datatype 'structure' with certain
+--- field to work with.
+structure user = {
+  name  : i8[]
+  age   : i32
+}
+
+--- So, functions are defined as [private]func fn_name(args):type=body
+func as_bytes(i32& i) : i8[4] = {
+  ret __builtin_as_bytes(i) 
+} 
+
+--- You can provide a reference to data, and call it like a method:
+const true_bytes = true.as_bytes()
+
+--- As you can see, there's no need to provide a type of field since
+--- it is already known by assigned value.
+
+--- Control flow is defined by these statements:
+--- if EXPR { CODEBLOCK }
+--- if ... else { CODEBLOCK }
+--- if ... elif EXPR { CODEBLOCK } else { CODEBLOCK }
+--- match VAR { => VALUE0 = { CODEBLOCK } => VALUEN = { CODEBLOCK } => ... { UNKNOWN_VALUE_CODEBLOCK } }
+
+--- Code below shows an example of what should be built to provide a basic
+--- main entry point into a program with arguments list in c-manner.
+
+structure cstr = {
+  bytes : u8[]
+  size  : u64
+}
+
+func to_cstr(u8[]& __strbytes) : cstr = {
+  ret cstr{
+    __strbytes,
+    __builtin_memcount(__strbytes)
+  }
+}
+
+structure array<T> = {
+  elements  : T[]
+  size      : u64
+  capacity  : u64
+}
+
+alias cstrarr = array<cstr>
+
+--- NOTE: entry point (main) should be defined as private function
+---       since it is illegal to call main(...) from user code.
+priv func main(cstrarr args) : i32 = {
+  ret 0
+}

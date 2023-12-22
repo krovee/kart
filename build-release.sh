@@ -7,7 +7,8 @@ TARGET_CONFIGURATION=$(uname -m)
 TARGET_PLATFORM=$OSTYPE
 
 ## Setup bootstrap build directory
-BOOTSTRAP_BUILD_DIR=bootstrap-${TARGET_CONFIGURATION}-${TARGET_PLATFORM}
+BOOTSTRAP_BUILD_DIR=bootstrap-$TARGET_CONFIGURATION-$TARGET_PLATFORM
 
 ## Perform a build
-cmake --build ${BOOTSTRAP_BUILD_DIR} --config Release
+./configure.sh
+cmake --build $BOOTSTRAP_BUILD_DIR --config Release

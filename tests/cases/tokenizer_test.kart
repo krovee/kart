@@ -1,0 +1,5 @@
+
+test_space = {
+  const cnst : u64 = 69420
+  const str : u8[] = "test_space"
+}

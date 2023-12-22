@@ -3,6 +3,9 @@
 ## Configuration (x64/x86/...)
 TARGET_CONFIGURATION=$(uname -m)
 
+## Main C/C++ compiler
+CXX_COMPILER=clang++
+
 ## Platform (OS) detection
 TARGET_PLATFORM=$OSTYPE
 
@@ -10,7 +13,7 @@ TARGET_PLATFORM=$OSTYPE
 BOOTSTRAP_BUILD_DIR=bootstrap-${TARGET_CONFIGURATION}-${TARGET_PLATFORM}
 
 ## Setup bootstrap source directory
-BOOTSTRAP_SOURCE_DIR=source/bootstrap
+BOOTSTRAP_SOURCE_DIR=source/bootstrap-cpp
 
 ## Setup bootstrap build system
 BOOTSTRAP_BUILD_TOOL=Ninja
@@ -21,4 +24,4 @@ if [ ! -d ${BOOTSTRAP_BUILD_DIR} ]; then
 fi
 
 ## Configure CMake for bootstrap build
-cmake -B ${BOOTSTRAP_BUILD_DIR} -S ${BOOTSTRAP_SOURCE_DIR} -G ${BOOTSTRAP_BUILD_TOOL}
+cmake -B ${BOOTSTRAP_BUILD_DIR} -S ${BOOTSTRAP_SOURCE_DIR} -G ${BOOTSTRAP_BUILD_TOOL} -DCMAKE_CXX_COMPILER=$CXX_COMPILER
