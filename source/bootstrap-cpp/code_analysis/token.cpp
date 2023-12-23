@@ -1,6 +1,6 @@
 #include "token.h"
 
-namespace kart {
+namespace kart::code_analysis {
   namespace {
     token::kind __char_to_kind(token::character_glue c) noexcept {
       switch (c) {

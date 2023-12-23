@@ -10,7 +10,7 @@
 #include <variant>
 #include "../diagnostics.h"
 
-namespace kart {
+namespace kart::code_analysis {
   class token {
   public:
     enum kind : uint32_t {
@@ -143,8 +143,8 @@ namespace kart {
 
 namespace std {
   template<>
-  struct hash<kart::token> {
-    inline size_t operator()(kart::token const& t) const noexcept {
+  struct hash<kart::code_analysis::token> {
+    inline size_t operator()(kart::code_analysis::token const& t) const noexcept {
       const auto __location_hash = hash<kart::diagnostics::location>()(t.get_location());
       if (const auto __text = t.get_text_rep(); __text) {
         return hash<std::string>()(*__text) + __location_hash;

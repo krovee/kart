@@ -4,7 +4,7 @@
 
 #define elif else if
 
-namespace kart {
+namespace kart::code_analysis {
   tokenizer::max_diagnostics_level 
   tokenizer::tokenize(tokenizer::tokens_stream& stream) noexcept {
 

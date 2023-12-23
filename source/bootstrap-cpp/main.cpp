@@ -1,5 +1,5 @@
 #include "io.h"
-#include "syntax/tokenizer.h"
+#include "code_analysis/tokenizer.h"
 #include <iostream>
 #include <vector>
 #include <string_view>
@@ -26,7 +26,7 @@ auto main(int argc, char** argv) -> int {
     } 
 
     #ifndef NDEBUG
-    __input_filenames.emplace_back("../tests/cases/tokenizer_test.kart");
+    __input_filenames.emplace_back("tests/cases/tokenizer_test.kart");
     #endif
 
     // work for every file (compile every file to a target)
@@ -40,14 +40,14 @@ auto main(int argc, char** argv) -> int {
         continue;
       }
 
-      kart::tokenizer __tokenizer(__filename, __text_buf);
-      auto __tokens = kart::tokenizer::tokens_stream();
+      kart::code_analysis::tokenizer __tokenizer(__filename, __text_buf);
+      auto __tokens = kart::code_analysis::tokenizer::tokens_stream();
       const auto __max_diagnostics_level = __tokenizer.tokenize(__tokens);
       auto __ostream_ptr = static_cast<std::ostream*>(nullptr);
-      if (__max_diagnostics_level == kart::tokenizer::kError) {
+      if (__max_diagnostics_level == kart::code_analysis::tokenizer::kError) {
         __ostream_ptr = &std::cerr;
       }
-      else if (__max_diagnostics_level == kart::tokenizer::kWarning) {
+      else if (__max_diagnostics_level == kart::code_analysis::tokenizer::kWarning) {
         __ostream_ptr = &std::cout;
       }
 

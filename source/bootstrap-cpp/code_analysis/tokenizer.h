@@ -3,7 +3,7 @@
 #include "token.h"
 #include <cstdlib>
 
-namespace kart {
+namespace kart::code_analysis {
   class tokenizer {
   public:
     using tokens_stream = std::vector<token>;
